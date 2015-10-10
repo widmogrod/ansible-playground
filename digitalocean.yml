@@ -1,0 +1,32 @@
+---
+- name: Setup DigitalOcean 
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+  - name: "Create DigitalOcean instance"
+    digital_ocean: 
+      state=present
+      command=droplet
+      id=8127047
+      name=ansible
+      unique_name=yes
+      client_id={{ digital_ocean.client_id }}
+      api_key={{ digital_ocean.api_key }}
+      ssh_key_ids={{ digital_ocean.ssh_key_ids }}
+      size_id=66
+      image_id=12778278
+      region_id=10
+    register: do
+
+  - debug: msg="ID is {{ do.droplet.id }}"
+  - debug: msg="IP is {{ do.droplet.ip_address }}"
+
+  - name: Add new host to inventory.
+    lineinfile:
+      dest=hosts
+      regexp="{{ do.droplet.ip_address }}"
+      line="web1 ansible_ssh_host={{ do.droplet.ip_address }}"
+    when: do.droplet is defined
+

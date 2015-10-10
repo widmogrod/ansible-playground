@@ -1,0 +1,8 @@
+---
+- name: Setup web servers
+  hosts: web
+  sudo: true
+
+  tasks:
+   - name: Setup nginix server
+     apt: name=nginx state=present

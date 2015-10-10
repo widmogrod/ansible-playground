@@ -1,0 +1,7 @@
+localhost ansible_connection=local
+
+[droplets]
+web1 ansible_ssh_host=46.101.230.73
+
+[web]
+web1
