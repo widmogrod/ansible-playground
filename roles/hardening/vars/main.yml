@@ -1,4 +1,5 @@
 ---
-deploy_password: ''
-public_key: ''
+user: deploy
+password:
+public_key:
 
