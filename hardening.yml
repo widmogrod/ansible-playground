@@ -1,8 +1,0 @@
----
-- name: Hardenin of all instances
-  hosts: web
-  vars:
-  - public_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
-
-  roles:
-  - { role: hardening, public_key: "{{ public_key }}" }
