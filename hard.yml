@@ -1,0 +1,6 @@
+- hosts: web1
+  remote_user: root
+  vars:
+    public_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+  roles:
+  - { role: hardening, public_key: "{{ public_key }}" }

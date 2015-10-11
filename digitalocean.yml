@@ -9,14 +9,14 @@
     digital_ocean:
       state=present
       command=droplet
-      id=8127047
+      id=8149055
       name=ansible
       unique_name=yes
       client_id={{ digital_ocean.client_id }}
       api_key={{ digital_ocean.api_key }}
       ssh_key_ids={{ digital_ocean.ssh_key_ids }}
       size_id=66
-      image_id=12778278
+      image_id=13089493
       region_id=10
     register: do
 
