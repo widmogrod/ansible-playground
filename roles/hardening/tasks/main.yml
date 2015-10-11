@@ -1,0 +1,6 @@
+---
+- include: debian_update.yml
+- include: debian_sudo.yml
+- include: debian_ssh.yml
+- include: debian_firewall.yml
+

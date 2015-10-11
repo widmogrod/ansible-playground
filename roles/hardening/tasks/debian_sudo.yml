@@ -1,0 +1,16 @@
+---
+- name: Install sudo
+  apt: name=sudo state=installed
+
+- name: Add deployment user
+  user: name=deploy password='{{ deploy_password }}'
+
+- name: Add authorized deploy key
+  authorized_key: user=deploy key='{{ public_key }}'
+
+- name: Remove sudo group rights
+  lineinfile: dest=/etc/sudoers regexp="^%sudo" state=absent
+
+- name: Add deploy user to sudoers
+  lineinfile: "dest=/etc/sudoers regexp='deploy ALL' line='deploy ALL=(ALL) NOPASSWD: ALL' state=present"
+

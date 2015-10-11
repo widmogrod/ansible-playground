@@ -1,0 +1,13 @@
+---
+- name: Install firewall - ufw
+  apt: name=ufw state=installed
+
+- name: Open ports on firewall - ufw
+  shell: "ufw allow {{ item }}"
+  with_items:
+    - 22/tcp
+    - 80/tcp
+
+- name: Enable firewall - ufw
+  shell: echo 'y' | ufw enable
+
