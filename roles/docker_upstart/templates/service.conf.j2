@@ -1,0 +1,14 @@
+# {{ ansible_managed }}
+
+description "Keep docker container name {{ name }} running"
+author "ansible/docker_upstart"
+
+start on filesystem and started docker
+stop on runlevel [!2345]
+
+respawn
+respawn limit {{ respawn_limit }}
+
+script
+  /usr/bin/docker start -a {{ name }}
+end script
