@@ -1,13 +1,13 @@
 ---
-- name: "Start docker wordpress-{{ name }} instance version {{ wordpress_version }}"
+- name: "Start docker wordpress-{{ name }} instance"
   docker:
-    name: wordpress-{{ name }}
-    image: wordpress:{{ wordpress_version }}
-    state: started
+    name: "wordpress-{{ name }}"
+    image: "wordpress:{{ wordpress_version }}"
+    state: present
     env:
       WORDPRESS_DB_PASSWORD: "{{ mysql_pass }}"
     ports:
-      "{{ wordpress_port }}:80"
+      - "{{ wordpress_port }}:80"
     links:
-      - "wordpres-mysql-{{name}}:mysql"
+      - "wordpres-mysql-{{ name }}:mysql"
 

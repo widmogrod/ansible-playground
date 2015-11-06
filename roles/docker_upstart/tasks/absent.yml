@@ -1,10 +1,17 @@
 ---
+- name: "Check if upstart confexists for docker {{ name }}"
+  stat:
+    path: /etc/init/docker-{{ name }}.conf
+  register: conf
+
 - name: "Stop docker {{ name }} upstart service"
   service:
     name: "docker-{{ name }}"
     state: stopped
+  when: conf.stat.exists == true
 
 - name:  "Delete upstart conf for docker {{ name }}"
   file:
     dest: /etc/init/docker-{{ name }}.conf
     state: absent
+  when: conf.stat.exists
