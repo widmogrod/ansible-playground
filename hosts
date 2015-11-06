@@ -1,7 +1,5 @@
 localhost
 
-[droplets]
-web1 ansible_ssh_host=46.101.184.197
+[dockers]
+docker1 ansible_ssh_host=46.101.212.166
 
-[web]
-web1
