@@ -9,7 +9,7 @@
     repo: "deb https://apt.dockerproject.org/repo ubuntu-trusty main"
     state: present
 
-- name: Install apt {{ item }}  packages
+- name: "Install apt packages"
   apt:
     name: "{{ item }}"
     state: installed
@@ -22,7 +22,7 @@
     name: docker
     state: started
 
-- name: Install pip package {{ item.name }} for docker
+- name: "Install pip packages"
   pip:
     name: "{{ item.name }}"
     version: "{{ item.version }}"

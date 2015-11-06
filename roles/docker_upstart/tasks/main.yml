@@ -1,12 +1,6 @@
 ---
-- name: Create docker {{ name }} upstart service
-  template:
-    src: service.conf.j2
-    dest: /etc/init/docker-{{ name }}.conf
-    backup: yes
-    mode: 0644
+- include: present.yml
+  when: state == "present"
 
-- name: Start docker {{ name }} upstart service
-  service:
-    name: "docker-{{ name }}"
-    state: started
+- include: absent.yml
+  when: state == "absent"
