@@ -1,13 +1,21 @@
 ---
+- name: "Create directory for wordpress-{{ name }} app"
+  file:
+    path: "/var/www/wordpress-{{ name }}"
+    state: directory
+    mode: 0755
+
 - name: "Start docker wordpress-{{ name }} instance"
   docker:
     name: "wordpress-{{ name }}"
     image: "wordpress:{{ wordpress_version }}"
-    state: present
+    state: reloaded
     env:
       WORDPRESS_DB_PASSWORD: "{{ mysql_pass }}"
     ports:
       - "{{ wordpress_port }}:80"
     links:
-      - "wordpres-mysql-{{ name }}:mysql"
+      - "wordpress-mysql-{{ name }}:mysql"
+    volumes:
+      - "/var/www/wordpress-{{ name }}:/var/www/html"
 

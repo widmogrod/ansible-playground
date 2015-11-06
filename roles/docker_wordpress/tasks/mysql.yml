@@ -1,17 +1,17 @@
 ---
 - name: "Create directory for wordpress-{{ name }} mysql"
   file:
-    path: "/var/data/mysql-{{ name }}"
+    path: "/var/data/wordpress-mysql-{{ name }}"
     state: directory
     mode: 0755
 
 - name: "Start docker mysql instance for wordpress-{{ name }}"
   docker:
-    name: "wordpres-mysql-{{name}}"
+    name: "wordpress-mysql-{{name}}"
     image: "mysql:{{ mysql_version }}"
-    state: present
+    state: reloaded
     volumes:
-      - "/var/data/mysql-{{ name }}:/var/lib/mysql[rw]"
+      - "/var/data/wordpress-mysql-{{ name }}:/var/lib/mysql"
     env:
       MYSQL_ROOT_PASSWORD: "{{ mysql_pass }}"
 
