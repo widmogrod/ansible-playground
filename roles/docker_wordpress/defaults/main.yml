@@ -1,0 +1,5 @@
+---
+name: my-wordpress
+wordpress_version: latest
+wordpress_port: 80
+mysql_pass:

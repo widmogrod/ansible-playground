@@ -1,2 +1,3 @@
 ---
 respawn_limit: "5 60"  # try 5 times within 60 seconds, or giveup
+state: present

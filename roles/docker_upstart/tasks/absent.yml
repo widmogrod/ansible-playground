@@ -1,0 +1,10 @@
+---
+- name: "Stop docker {{ name }} upstart service"
+  service:
+    name: "docker-{{ name }}"
+    state: stopped
+
+- name:  "Delete upstart conf for docker {{ name }}"
+  file:
+    dest: /etc/init/docker-{{ name }}.conf
+    state: absent

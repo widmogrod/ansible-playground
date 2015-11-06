@@ -1,0 +1,18 @@
+---
+- name: "Create directory for wordpress-{{ name }} mysql"
+  file:
+    path: "/var/data/mysql-{{ name }}"
+    state: directory
+    mode: 0755
+
+- name: "Start docker mysql instance for wordpress-{{ name }}"
+  docker:
+    name: wordpres-mysql-{{name}}
+    image: mysql
+    state: started
+    volumes:
+      - "/var/data/mysql-{{ name }}:/var/lib/mysql[rw]"
+    env:
+      MYSQL_ROOT_PASSWORD: "{{ mysql_pass }}"
+
+
