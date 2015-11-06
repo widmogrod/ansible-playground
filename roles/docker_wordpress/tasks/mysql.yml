@@ -7,9 +7,9 @@
 
 - name: "Start docker mysql instance for wordpress-{{ name }}"
   docker:
-    name: wordpres-mysql-{{name}}
-    image: mysql
-    state: started
+    name: "wordpres-mysql-{{name}}"
+    image: "mysql:{{ mysql_version }}"
+    state: present
     volumes:
       - "/var/data/mysql-{{ name }}:/var/lib/mysql[rw]"
     env:
