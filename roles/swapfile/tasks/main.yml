@@ -1,0 +1,40 @@
+---
+- name: Check if swapfile {{ location }} already exists
+  stat:
+    path: "{{ location }}"
+  register: swapfile
+  when: location is defined
+
+- name: Write swapfile {{ location }}
+  command: fallocate -l {{ size }} {{ location }}
+  register: allocated
+  when: not swapfile.stat.exists and size is defined
+
+- name: Set onwer only permissions {{ location }}
+  file:
+    path: "{{ location }}"
+    mode: 0600
+  when: swapfile.stat.exists
+
+- name: Create swapfile {{ location }}
+  command: mkswap {{ location }}
+  register: created
+  when: allocated.changed and allocated.rc == 0
+
+- name: Enable swapfile {{ location }}
+  command: swapon {{ location }}
+  when: created.changed
+
+- name: Add swapfile {{ location }} to /etc/fstab
+  lineinfile:
+    dest: /etc/fstab
+    line: "{{ location }}   none    swap    sw    0   0"
+    state: present
+
+- name: Configure vm.swappiness = {{ swappiness }}
+  command: "sysctl vm.swappiness={{ swappiness }}"
+  when: swappiness is defined
+
+- name: Configure vm.vfs_cache_pressure = {{ vfs_cache_pressure }}
+  command: "sysctl vm.vfs_cache_pressure={{ vfs_cache_pressure }}"
+  when: vfs_cache_pressure is defined
