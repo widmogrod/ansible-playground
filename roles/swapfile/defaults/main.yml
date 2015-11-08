@@ -1,0 +1,5 @@
+---
+# size: 255M
+# location: /swapfile
+# swappiness: 10
+# vfs_cache_pressure: 100
