@@ -2,6 +2,7 @@
 - hosts: dockers
   roles:
   - { role: docker }
+  - { role: swapfile, location: "/swapfile", size: 500M }
   - { role: docker_wordpress, name: "test", mysql_pass: asd }
   - { role: docker_upstart, name: "wordpress-mysql-test" }
   - { role: docker_upstart, name: "wordpress-test" }
