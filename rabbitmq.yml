@@ -1,0 +1,24 @@
+---
+- hosts: dockers
+  vars:
+    name: bus
+
+  roles:
+  - { role: docker }
+
+  tasks:
+  - name: "Create directory for rabbitmq-{{ name }}"
+    file:
+      path: "/var/www/rabbitmq-{{ name }}"
+      state: directory
+      mode: 0755
+
+  - name: "Start docker rabbitmq-{{ name }} instance"
+    docker:
+      name: "rabbitmq-{{ name }}"
+      image: "rabbitmq:3"
+      hostname: "rabbitmq-{{ name }}"
+      state: started
+      # volumes:
+      #   - "/var/lib/rabbitmq-{{ name }}:/var/lib/rabbitmq"
+
